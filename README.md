@@ -39,7 +39,8 @@ service and one for getting a cached version
 
 Reads in the configuration from the meta data service, by default it
 uses http://169.254.169.254/1.0/user-data , but you can use a different
-url by passing it the option userdata_url .
+url by passing it the option userdata_url.
+
 ReadConfig expects a json string from the metadata service with the
 config stored at key "app_config"; This can be changed by passing the
 key option. 
