@@ -26,5 +26,6 @@
     "mocha": "~1.11.0"
   },
   "dependencies": {
+    "json-compressor": "0.0.1"
   }
 }
