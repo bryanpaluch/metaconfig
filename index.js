@@ -4,12 +4,10 @@ var compress = require('json-compressor');
 function readConfig(opts, cb){
   // Sets the url or uses the default ec2 variant
   var dataurl = url.parse(opts.userdata_url || 'http://169.254.169.254/1.0/user-data');
-  var reqopts =  { hostname: dataurl.hostname, path: dataurl.path, method: 'GET'}
+  var reqopts =  { hostname: dataurl.hostname, port: dataurl.port, path: dataurl.path, method: 'GET'}
   // The key to use in the user data blob that reflects the config must be root level
   var key = opts.key || 'app_config';
-  var is_finished = false; 
   var req = http.request(reqopts, function(res){
-    console.log("got res"); 
     res.setEncoding('utf8');
     var result = ''; 
     res.on('data', function(chunk){
@@ -19,11 +17,12 @@ function readConfig(opts, cb){
       try{
         var user_data = JSON.parse(compress(result));
         if(user_data[key]) return cb( user_data[key]);
-        
+        console.log('metadata: missing key'); 
         return cb( opts.backup || null);
       }catch(e){
-        console.log('JSON.parse failed, using backup');
+        console.log('metadata: JSON.parse failed, using backup');
       }
+      opts.backup._failed = true;
       return cb( opts.backup || null);
     });
   });
@@ -31,7 +30,8 @@ function readConfig(opts, cb){
   req.on('error', function(e){
     // If there is an error with the request, then we use the backup config
     // Its possible this machine is a dev instance that doesn't use ec2 or openstack metadata
-    
+    console.log("metadata: time out getting config"); 
+    opts.backup._failed = true;
     return cb(opts.backup || null);
   });
   req.end();

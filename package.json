@@ -4,7 +4,7 @@
   "description": "Get configurations from a metadata service with fallbacks",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha test.js"
+    "test": "./node_modules/mocha/bin/mocha test.js --reporter list"
   },
   "repository": {
     "type": "git",
