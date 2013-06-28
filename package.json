@@ -1,0 +1,30 @@
+{
+  "name": "metaconfig",
+  "version": "0.0.1",
+  "description": "Get configurations from a metadata service with fallbacks",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bryanpaluch/metaconfig.git"
+  },
+  "keywords": [
+    "metadata",
+    "userdata",
+    "openstack",
+    "ec2"
+  ],
+  "author": "Bryan Paluch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bryanpaluch/metaconfig/issues"
+  },
+  "devDependencies": {
+    "node-static": "~0.7.0",
+    "mocha": "~1.11.0"
+  },
+  "dependencies": {
+  }
+}
